@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -6,6 +6,29 @@ function App() {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
 
+  // Obtener recetas desde TheMealDB al cargar la página
+  useEffect(() => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.meals) {
+          // Convertimos cada receta en una nota
+          const recetas = data.meals.map((meal) => ({
+            id: meal.idMeal,
+            titulo: meal.strMeal,
+            descripcion: meal.strInstructions.substring(0, 100) + '...', // resumen
+          }));
+          setNotas(recetas);
+        } else {
+          console.warn("No se encontraron recetas");
+        }
+      })
+      .catch((err) => {
+        console.error('Error al obtener recetas:', err);
+      });
+  }, []);
+
+  //  Agregar nota manual (solo local)
   const agregarNota = (e) => {
     e.preventDefault();
 
@@ -15,31 +38,45 @@ function App() {
     }
 
     const nuevaNota = {
-      id: Date.now(), // identificador único
-      titulo: titulo,
-      descripcion: descripcion,
+      id: Date.now(),
+      titulo,
+      descripcion,
     };
 
-    setNotas([...notas, nuevaNota]); // agrega la nueva nota
+    setNotas([...notas, nuevaNota]);
     setTitulo('');
-    setDescripcion(''); // limpia el formulario
+    setDescripcion('');
   };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Recetas</h1>
+
+      <form onSubmit={agregarNota}>
+        <input
+          type="text"
+          placeholder="Título"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+        />
+        <br />
+        <textarea
+          placeholder="Descripción"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+        ></textarea>
+        <br />
+        <button type="submit">Agregar Nota</button>
+      </form>
+
+      <div className="notas-container">
+        {notas.map((nota) => (
+          <div key={nota.id} className="postit">
+            <h3>{nota.titulo}</h3>
+            <p>{nota.descripcion}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

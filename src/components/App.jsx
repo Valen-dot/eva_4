@@ -12,8 +12,19 @@ function App() {
   };
 
   const eliminarNota = (id) => {
-    setNotas(notas.filter((nota) => nota.id !== id));
+    setNotas(notas.map((nota) => nota.id == id ? {... nota,importante:!nota.importante}: nota));
   };
+
+   // Función para marcar una nota como importante
+  const alternarimportacia = (id) => {
+    setNotas(notas.map((nota) => 
+      nota.id === id ? { ...nota, importante: !nota.importante } : nota
+    ));
+  }
+  function onToggleImportante(id) {
+    setNotas(notas.map((nota) => nota.id === id ? { ...nota, importante: !nota.importante } : nota
+    ));
+  }
 
   return (
     <div className="App">
@@ -22,7 +33,10 @@ function App() {
       <ApiPostIt onAdd={agregarNota} />
       <div className="notas-container">
         {notas.map((nota) => (
-          <PostIt key={nota.id} nota={nota} onDelete={eliminarNota} />
+          <PostIt key={nota.id}
+           nota={nota} 
+           onDelete={eliminarNota}
+           onToggleImportante={alternarimportacia} />
         ))}
       </div>
     </div>

@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,15 +13,189 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+.notas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.postit {
+  background: #fffb8f; /* amarillo post-it */
+  width: 220px;
+  min-height: 150px;
+  padding: 15px;
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+  border: 1px solid #e2d94e;
+  border-radius: 6px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  color: #333;
+  position: relative;
+  cursor: default;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.postit:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+}
+
+.postit h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+.postit p {
+  font-size: 0.9em;
+  white-space: pre-wrap;
+}
+
+.postit::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 50px;
+  height: 12px;
+  background: #f5c242;
+  border-radius: 4px;
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+.postit::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 50px;
+  height: 12px;
+  background: #f5c242;
+  border-radius: 4px;
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+.body { 
+  background-color: #666;
+  margin: 0;
+  font-family: 'Reenie Beanie', cursive;
+  color: white;
+  text-align: center;
+}
+h1{
+  margin-top: 20px;
+  font-size: 48px;
+}
+ form {
+  margin-bottom: 20px;
+}
+
+input, textarea {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 18px;
+  padding: 18px;
+  margin: 5px;
+  width: 250px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+button{
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.notas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.postit {
+  background: #FFFFCC; /* colorNormal */
+  color: #111;          /* colorGrisOscuro */
+  width: 220px;
+  min-height: 150px;
+  padding: 15px;
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  position: relative;
+  transition: transform 0.2s ease;
+  font-size: 22px;
+}
+
+.postit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.postit.importante {
+  background-color: #EC7063;  /* colorImportante */
+  color: white;
+  box-shadow: 0 0 15px 3px rgba(255, 0, 0, 0.6);
+}
+
+.postit h3 {
+  margin-top: 0;
+  font-size: 1.4em;
+}
+
+.postit p {
+  font-size: 1em;
+  white-space: pre-wrap;
+}
+
+.btn-eliminar {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #900;
+  cursor: pointer;
+}
+
+.btn-importante {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+}
+.cerrar {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.2em;
+  color: #a00;
+  cursor: pointer;
+}
+
+.importante {
+  margin-top: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
 }
