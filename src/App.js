@@ -1,11 +1,33 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [notas, setNotas] = useState([]);
+  const [titulo, setTitulo] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+
+  const agregarNota = (e) => {
+    e.preventDefault();
+
+    if (!titulo.trim() || !descripcion.trim()) {
+      alert('Por favor completa ambos campos');
+      return;
+    }
+
+    const nuevaNota = {
+      id: Date.now(), // identificador único
+      titulo: titulo,
+      descripcion: descripcion,
+    };
+
+    setNotas([...notas, nuevaNota]); // agrega la nueva nota
+    setTitulo('');
+    setDescripcion(''); // limpia el formulario
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -23,3 +45,4 @@ function App() {
 }
 
 export default App;
+

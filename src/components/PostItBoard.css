@@ -1,0 +1,17 @@
+.board-container {
+  background-color: #666;
+  min-height: 100vh;
+  padding: 2rem;
+  color: white;
+}
+
+.recipe-btn {
+  margin-top: 1rem;
+  background-color: #111;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-family: 'Reenie Beanie', cursive;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
