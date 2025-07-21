@@ -1,48 +1,38 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function PostItForm({ onAdd }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [isImportant, setIsImportant] = useState(false);
+function FormPostIt({ onAdd }) {
+  const [titulo, setTitulo] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [importante, setImportante] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!description.trim()) {
-      alert("La descripción es obligatoria.");
+    if (!descripcion.trim()) {
+      alert('La descripción es obligatoria.');
       return;
     }
-
-    onAdd({ title, description, isImportant });
-    setTitle('');
-    setDescription('');
-    setIsImportant(false);
+    onAdd({
+      id: Date.now(),
+      titulo,
+      descripcion,
+      importante,
+    });
+    setTitulo('');
+    setDescripcion('');
+    setImportante(false);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título (opcional)"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Descripción *"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
+      <input placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+      <textarea placeholder="Descripción" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
       <label>
-        Importante:
-        <input
-          type="checkbox"
-          checked={isImportant}
-          onChange={() => setIsImportant(!isImportant)}
-        />
+        <input type="checkbox" checked={importante} onChange={() => setImportante(!importante)} />
+        Importante!
       </label>
-      <button type="submit">Agregar</button>
+      <button type="submit">AGREGAR</button>
     </form>
   );
 }
 
-export default PostItForm;
+export default FormPostIt;

@@ -1,30 +1,23 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-function ApiPosts({ onAdd }) {
+function ApiPostIt({ onAdd }) {
   useEffect(() => {
-    fetch("https://spoonacular.com/food-api/v1/recipes/random?php=")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }     
-        return response;
-      })
-      
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?f=a')
       .then((res) => res.json())
       .then((data) => {
-        if (data.meals) {
-          const meal = data.meals[0];
-          const recipe = {
-            title: meal.strMeal,
-            description: meal.strInstructions,
-            isImportant: false
-          };
-          onAdd(recipe);
-        }
+        data.meals?.slice(0, 3).forEach((meal) => {
+          onAdd({
+            id: `api-${meal.idMeal}`,
+            titulo: meal.strMeal,
+            descripcion: meal.strInstructions.slice(0, 80) + '...',
+            importante: false,
+          });
+        });
       });
-  }, [onAdd]);
+  }, []);
 
   return null;
 }
 
-export default ApiPosts;
+export default ApiPostIt;
+
